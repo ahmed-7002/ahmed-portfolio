@@ -187,6 +187,12 @@ const Portfolio = () => {
       description: "A comprehensive movie details web app featuring film information, ratings, trailers, and cast details with an elegant cinematic user interface.", 
       link: "https://cinematic-studio.vercel.app",
       linkText: "View Project"
+    },
+     {
+      title: "Recipe Finder",
+      description: " Find the perfect recipe and follow along with built-in YouTube tutorials,Instructions and videos, all in one place.", 
+      link: "https://recipe-finder-psi-swart.vercel.app",
+      linkText: "View Project"
     }
   ];
 
