@@ -269,7 +269,13 @@ const Portfolio = () => {
           <div className="mb-8">
             <div className="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-transparent bg-gradient-to-br from-blue-400 via-cyan-400 to-blue-600 p-1 shadow-2xl shadow-blue-400/30 hover:shadow-blue-400/50 transition-all duration-500 hover:scale-105">
               <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-3xl font-bold text-white">
-                AH
+                 <picture>
+                 <img 
+                src="/pic 1.jpg" 
+                alt="Ahmed Hassan"
+                className="w-full h-full rounded-full object-cover"
+                />
+                </picture>
               </div>
             </div>
           </div>
