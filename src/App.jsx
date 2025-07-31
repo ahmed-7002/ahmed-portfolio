@@ -177,21 +177,27 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "Weather App", 
+      title: "🌤️ Weather App", 
       description: "A dynamic weather application with real-time data fetching, geolocation support, and beautiful UI components showing current conditions and forecasts.",
       link: "https://new-weather-rosy.vercel.app",
       linkText: "View Project"
     },
     {
-      title: "Cinematic Studio",
+      title: "🎥 Cinematic Studio",
       description: "A comprehensive movie details web app featuring film information, ratings, trailers, and cast details with an elegant cinematic user interface.", 
       link: "https://cinematic-studio.vercel.app",
       linkText: "View Project"
     },
      {
-      title: "Recipe Finder",
+      title: "🍽️ Recipe Finder",
       description: " Find the perfect recipe and follow along with built-in YouTube tutorials,Instructions and videos, all in one place.", 
       link: "https://recipe-finder-psi-swart.vercel.app",
+      linkText: "View Project"
+    },
+     {
+      title: "🌍 Country Explorer",
+      description: " Explore countries with ease — discover cuisines, tourist spots, maps, postal codes, and more in one app.", 
+      link: "country-explorer-iota-nine.vercel.app",
       linkText: "View Project"
     }
   ];
