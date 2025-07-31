@@ -197,7 +197,7 @@ const Portfolio = () => {
      {
       title: "🌍 Country Explorer",
       description: " Explore countries with ease — discover cuisines, tourist spots, maps, postal codes, and more in one app.", 
-      link: "country-explorer-iota-nine.vercel.app",
+      link: "https://country-explorer-iota-nine.vercel.app",
       linkText: "View Project"
     }
   ];
