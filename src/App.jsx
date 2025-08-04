@@ -203,7 +203,7 @@ const Portfolio = () => {
      {
       title: "📖 Quran Reader",
       description: " A beautiful, respectful digital companion for reading and exploring the Holy Quran. Experience the sacred text with multiple translations, and an interface designed for contemplation and study.", 
-      link: "https://recite-web.vercel.app/chapter/36",
+      link: "https://recite-web.vercel.app",
       linkText: "View Project"
     }
   ];
