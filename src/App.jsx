@@ -199,6 +199,12 @@ const Portfolio = () => {
       description: " Explore countries with ease — discover cuisines, tourist spots, maps, postal codes, and more in one app.", 
       link: "https://country-explorer-iota-nine.vercel.app",
       linkText: "View Project"
+    },
+     {
+      title: "📖 Quran Reader",
+      description: " A beautiful, respectful digital companion for reading and exploring the Holy Quran. Experience the sacred text with multiple translations, and an interface designed for contemplation and study.", 
+      link: "https://recite-web.vercel.app/chapter/36",
+      linkText: "View Project"
     }
   ];
 
