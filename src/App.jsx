@@ -25,7 +25,7 @@ const Portfolio = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 100;
       const sections = ['home', 'projects', 'about', 'contact'];
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -36,7 +36,7 @@ const Portfolio = () => {
           }
         }
       }
-      
+
       setShowBackToTop(window.scrollY > 400);
     };
 
@@ -87,49 +87,47 @@ const Portfolio = () => {
 
   const handleSubmit = async (e) => {
     e?.preventDefault?.();
-    
+
     const { name, email, message } = formData;
-    
+
     // Validation checks
     if (!name.trim()) {
       showNotification('Name is required!');
       return;
     }
-    
+
     if (!validateName(name)) {
       showNotification('Name can only contain letters and spaces!');
       return;
     }
-    
+
     if (!email.trim()) {
       showNotification('Email is required!');
       return;
     }
-    
+
     if (!validateEmail(email)) {
       showNotification('Please enter a valid email address!');
       return;
     }
-    
+
     if (!message.trim()) {
       showNotification('Message cannot be empty!');
       return;
     }
 
     setIsSubmitting(true);
-    
+
     try {
       // Prepare template parameters
       const templateParams = {
         from_name: name.trim(),
         from_email: email.trim(),
         message: message.trim(),
-        to_name: 'Ahmed Hassan', // Your name for the template
-        reply_to: email.trim(), // This ensures replies go to the user
-        // Additional useful info
+        to_name: 'Ahmed Hassan',
+        reply_to: email.trim(),
         timestamp: new Date().toLocaleString(),
         subject: `New Portfolio Message from ${name.trim()}`,
-        // Explicitly set reply-to for better compatibility
         'reply-to': email.trim()
       };
 
@@ -146,7 +144,7 @@ const Portfolio = () => {
       console.log('EmailJS result:', result);
 
       if (result.status === 200) {
-        showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
+        showNotification("Message sent successfully! I'll get back to you soon.", 'success');
         // Reset form
         setFormData({ name: '', email: '', message: '' });
       } else {
@@ -154,8 +152,7 @@ const Portfolio = () => {
       }
     } catch (error) {
       console.error('EmailJS Error:', error);
-      
-      // More specific error messages
+
       if (error.text) {
         showNotification(`Failed to send message: ${error.text}`, 'error');
       } else if (error.status) {
@@ -177,32 +174,32 @@ const Portfolio = () => {
 
   const projects = [
     {
-      title: "🌤️ Weather App", 
+      title: "🌤️ Weather App",
       description: "A dynamic weather application with real-time data fetching, geolocation support, and beautiful UI components showing current conditions and forecasts.",
       link: "https://new-weather-rosy.vercel.app",
       linkText: "View Project"
     },
     {
       title: "🎥 Cinematic Studio",
-      description: "A comprehensive movie details web app featuring film information, ratings, trailers, and cast details with an elegant cinematic user interface.", 
+      description: "A comprehensive movie details web app featuring film information, ratings, trailers, and cast details with an elegant cinematic user interface.",
       link: "https://cinematic-studio.vercel.app",
       linkText: "View Project"
     },
-     {
+    {
       title: "🍽️ Recipe Finder",
-      description: " Find the perfect recipe and follow along with built-in YouTube tutorials,Instructions and videos, all in one place.", 
+      description: "Find the perfect recipe and follow along with built-in YouTube tutorials, instructions and videos, all in one place.",
       link: "https://recipe-finder-psi-swart.vercel.app",
       linkText: "View Project"
     },
-     {
+    {
       title: "🌍 Country Explorer",
-      description: " Explore countries with ease — discover cuisines, tourist spots, maps, postal codes, and more in one app.", 
+      description: "Explore countries with ease — discover cuisines, tourist spots, maps, postal codes, and more in one app.",
       link: "https://country-explorer-iota-nine.vercel.app",
       linkText: "View Project"
     },
-     {
+    {
       title: "📖 Quran Reader",
-      description: " A beautiful, respectful digital companion for reading and exploring the Holy Quran. Experience the sacred text with multiple translations, and an interface designed for contemplation and study.", 
+      description: "A beautiful, respectful digital companion for reading and exploring the Holy Quran. Experience the sacred text with multiple translations, and an interface designed for contemplation and study.",
       link: "https://recite-web.vercel.app",
       linkText: "View Project"
     }
@@ -216,39 +213,44 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="bg-black text-white min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-md z-50 border-b border-blue-400/30 shadow-lg shadow-blue-900/20">
+    <div className="min-h-screen text-stone-800" style={{ fontFamily: "'DM Sans', sans-serif", backgroundColor: '#FAFAF7' }}>
+
+      {/* ─── NAVIGATION ──────────────────────────────────────────────── */}
+      <nav className="fixed top-0 w-full z-50 border-b border-stone-200/60"
+        style={{ backgroundColor: 'rgba(250,250,247,0.88)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            {/* Logo */}
+            <div
+              className="text-xl font-bold text-stone-800 tracking-tight select-none"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
               Ahmed Hassan
             </div>
-            
+
             {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                {['home', 'projects', 'about', 'contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative ${
-                      activeSection === item
-                        ? 'text-white bg-gradient-to-r from-blue-600 to-cyan-600 shadow-lg shadow-blue-600/30'
-                        : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-cyan-600/20 hover:shadow-md hover:shadow-blue-600/20'
-                    }`}
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </button>
-                ))}
-              </div>
+            <div className="hidden md:flex items-center gap-1">
+              {['home', 'projects', 'about', 'contact'].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item)}
+                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeSection === item
+                      ? 'bg-stone-800 text-white shadow-md'
+                      : 'text-stone-500 hover:text-stone-800 hover:bg-stone-100'
+                  }`}
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </button>
+              ))}
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+                className="p-2 rounded-xl text-stone-500 hover:text-stone-800 hover:bg-stone-100 transition-all duration-200"
+                aria-label="Toggle menu"
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -256,17 +258,22 @@ const Portfolio = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-gradient-to-b from-black/98 to-gray-900/98 backdrop-blur-md border-b border-blue-400/20">
+        {/* Mobile Dropdown */}
+        <div
+          className={`md:hidden transition-all duration-300 ${
+            isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+          } overflow-hidden`}
+        >
+          <div className="px-4 pt-2 pb-4 space-y-1 border-b border-stone-100"
+            style={{ backgroundColor: 'rgba(250,250,247,0.98)' }}>
             {['home', 'projects', 'about', 'contact'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className={`block px-4 py-3 rounded-lg text-base font-medium w-full text-left transition-all duration-300 ${
+                className={`block px-4 py-3 rounded-xl text-base font-medium w-full text-left transition-all duration-300 ${
                   activeSection === item
-                    ? 'text-white bg-gradient-to-r from-blue-600 to-cyan-600 shadow-lg shadow-blue-600/30'
-                    : 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-cyan-600/20'
+                    ? 'bg-stone-800 text-white'
+                    : 'text-stone-600 hover:text-stone-800 hover:bg-stone-100'
                 }`}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
@@ -276,88 +283,187 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      {/* Home Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-black to-cyan-900/10"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        
-        <div className="text-center animate-fade-in relative z-10">
-          <div className="mb-8">
-            <div className="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-transparent bg-gradient-to-br from-blue-400 via-cyan-400 to-blue-600 p-1 shadow-2xl shadow-blue-400/30 hover:shadow-blue-400/50 transition-all duration-500 hover:scale-105">
-              <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-3xl font-bold text-white">
-                 <picture>
-                 <img 
-                src="/pic 1.jpg" 
-                alt="Ahmed Hassan"
-                className="w-full h-full rounded-full object-cover"
-                />
+      {/* ─── HERO SECTION ────────────────────────────────────────────── */}
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-4 pt-24 pb-12 overflow-hidden"
+        style={{ backgroundColor: '#FAFAF7' }}>
+
+        {/* Ambient floating blobs */}
+        <div className="absolute top-1/4 left-1/6 w-80 h-80 rounded-full blur-3xl animate-blob-drift-a"
+          style={{ backgroundColor: 'rgba(251,191,36,0.12)' }} />
+        <div className="absolute bottom-1/4 right-1/6 w-96 h-96 rounded-full blur-3xl animate-blob-drift-b"
+          style={{ backgroundColor: 'rgba(253,186,116,0.10)' }} />
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 rounded-full blur-3xl animate-blob-drift-c"
+          style={{ backgroundColor: 'rgba(214,211,209,0.25)' }} />
+
+        {/* Decorative geometric outlines */}
+        <div className="absolute top-24 right-16 w-20 h-20 rounded-full border border-stone-200/60 animate-spin-glacial hidden lg:block" />
+        <div className="absolute bottom-28 left-14 w-12 h-12 border border-amber-200/50 rotate-45 animate-float-gentle hidden lg:block" />
+        <div className="absolute top-40 left-24 w-6 h-6 rounded-full bg-amber-200/40 animate-pulse hidden lg:block" />
+
+        {/* Content */}
+        <div className="text-center animate-fade-in delay-100 relative z-10 max-w-3xl mx-auto px-4 w-full">
+
+          {/* Avatar */}
+          <div className="mb-10 flex justify-center">
+            <div className="relative">
+              {/* Spinning dashed ring */}
+              <div className="absolute -inset-4 rounded-full border-2 border-dashed border-stone-200/70 animate-spin-glacial" />
+              {/* Solid outer ring */}
+              <div className="absolute -inset-2 rounded-full border border-stone-200/50" />
+              {/* Photo frame */}
+              <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden shadow-[0_8px_48px_rgba(0,0,0,0.10)] ring-4 ring-white">
+                <picture>
+                  <img
+                    src="/pic 1.jpg"
+                    alt="Ahmed Hassan"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </picture>
               </div>
+              {/* Online badge */}
+              <span className="absolute bottom-1 right-1 md:bottom-2 md:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-white shadow-sm">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              </span>
             </div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-400 bg-clip-text text-transparent leading-tight">
+
+          {/* Role chip */}
+          <div className="inline-flex items-center gap-2 bg-white border border-stone-200 rounded-full px-4 py-1.5 mb-5 shadow-sm">
+            <span className="text-stone-400 text-xs font-semibold tracking-widest uppercase">Frontend Developer</span>
+          </div>
+
+          {/* Name */}
+          <h1
+            className="text-5xl sm:text-6xl md:text-7xl font-bold text-stone-800 leading-tight tracking-tight mb-5"
+            style={{ fontFamily: "'Playfair Display', serif" }}
+          >
             Ahmed Hassan
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8 opacity-90">
-            An enthusiastic frontend developer looking to learn new technology to implement and improve modern UI/UX experiences
+
+          {/* Tagline */}
+          <p className="text-base md:text-lg text-stone-500 max-w-xl mx-auto leading-relaxed mb-10">
+            An enthusiastic frontend developer looking to learn new technology to implement and improve modern UI/UX experiences.
           </p>
-          <div className="mt-10 flex justify-center space-x-8">
+
+          {/* Actions */}
+          <div className="flex flex-wrap justify-center items-center gap-3">
             <a
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 rounded-full bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 text-blue-400 hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/60 hover:scale-110 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300"
+              className="p-3.5 rounded-2xl bg-white border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+              aria-label="GitHub"
             >
-              <Github className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
+              <Github className="w-5 h-5" />
             </a>
             <a
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 rounded-full bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 text-blue-400 hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/60 hover:scale-110 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300"
+              className="p-3.5 rounded-2xl bg-white border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+              aria-label="LinkedIn"
             >
-              <Linkedin className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
+              <Linkedin className="w-5 h-5" />
             </a>
             <button
               onClick={() => scrollToSection('contact')}
-              className="group p-4 rounded-full bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 text-blue-400 hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/60 hover:scale-110 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300"
+              className="p-3.5 rounded-2xl bg-white border border-stone-200 text-stone-600 hover:text-stone-900 hover:border-stone-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+              aria-label="Email"
             >
-              <Mail className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
+              <Mail className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="inline-flex items-center gap-2 bg-stone-800 text-white px-6 py-3.5 rounded-2xl hover:bg-stone-700 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 font-medium text-sm shadow-md"
+            >
+              View My Work
+              <ExternalLink className="w-4 h-4" />
             </button>
           </div>
         </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce-subtle hidden sm:flex">
+          <span className="text-stone-400 text-xs tracking-widest uppercase font-medium">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-stone-300 to-transparent" />
+        </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-24 px-4 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/5 to-transparent"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Featured Projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* ─── PROJECTS SECTION ────────────────────────────────────────── */}
+      <section id="projects" className="py-24 px-4 relative overflow-hidden"
+        style={{ backgroundColor: '#F4EDE0' }}>
+
+        {/* Subtle dot grid texture */}
+        <div
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #B8A99A 1px, transparent 1px)',
+            backgroundSize: '28px 28px'
+          }}
+        />
+
+        {/* Warm blob accent */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full blur-3xl"
+          style={{ backgroundColor: 'rgba(251,191,36,0.08)' }} />
+
+        <div className="max-w-7xl mx-auto relative z-10 animate-fade-in delay-200">
+          {/* Section header */}
+          <div className="text-center mb-14">
+            <span className="inline-block text-amber-700/70 text-xs font-bold tracking-widest uppercase mb-3">
+              My Work
+            </span>
+            <h2
+              className="text-4xl md:text-5xl font-bold text-stone-800 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Featured Projects
+            </h2>
+            <div className="mt-5 mx-auto w-14 h-0.5 rounded-full" style={{ backgroundColor: '#D4A96A' }} />
+          </div>
+
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="group bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-2xl p-8 border border-gray-700/50 hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-400/20 hover:scale-105 transition-all duration-500 backdrop-blur-sm"
+                className="group bg-white rounded-2xl p-7 border border-stone-100 hover:-translate-y-2 transition-all duration-500"
+                style={{
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.055)',
+                  transition: 'box-shadow 0.4s ease, transform 0.4s ease'
+                }}
+                onMouseEnter={e => e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.11)'}
+                onMouseLeave={e => e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.055)'}
               >
-                <div className="mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Code className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-blue-300 transition-colors duration-300">{project.title}</h3>
-                  <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">{project.description}</p>
+                {/* Icon */}
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm"
+                  style={{ backgroundColor: '#292524' }}>
+                  <Code className="w-5 h-5 text-white" />
                 </div>
+
+                {/* Card number accent */}
+                <div className="text-xs font-bold tracking-widest text-stone-300 mb-2 uppercase">
+                  Project {String(index + 1).padStart(2, '0')}
+                </div>
+
+                <h3
+                  className="text-lg font-bold mb-3 text-stone-800 group-hover:text-amber-800 transition-colors duration-300 leading-snug"
+                >
+                  {project.title}
+                </h3>
+                <p className="text-stone-500 mb-6 leading-relaxed text-sm flex-grow">
+                  {project.description}
+                </p>
+
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-400 hover:text-cyan-300 font-medium transition-all duration-300 group-hover:translate-x-2"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-stone-700 hover:text-amber-700 transition-all duration-300 group-hover:translate-x-1 border-b border-stone-200 hover:border-amber-400 pb-0.5"
                 >
                   {project.linkText}
-                  <ExternalLink className="w-4 h-4 ml-2 group-hover:rotate-45 transition-transform duration-300" />
+                  <ExternalLink className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform duration-300" />
                 </a>
               </div>
             ))}
@@ -365,75 +471,133 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-24 px-4 bg-gradient-to-br from-gray-900/50 via-black to-blue-950/30 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-5xl mx-auto relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            About Me
-          </h2>
-          <div className="text-center mb-16">
-            <div className="bg-gradient-to-br from-gray-800/60 to-gray-900/40 rounded-3xl p-10 border border-gray-700/30 backdrop-blur-sm">
-              <p className="text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto">
-                I'm Ahmed Hassan, a passionate frontend developer focused on building responsive and elegant web apps. 
-                With a strong interest in design systems and UI/UX, I enjoy solving real-world problems through clean, 
+      {/* ─── ABOUT SECTION ───────────────────────────────────────────── */}
+      <section id="about" className="py-24 px-4 relative overflow-hidden bg-white">
+
+        {/* Corner shape accents */}
+        <div className="absolute top-0 right-0 w-72 h-72 rounded-bl-full opacity-50"
+          style={{ backgroundColor: '#FEF3C7' }} />
+        <div className="absolute bottom-0 left-0 w-56 h-56 rounded-tr-full opacity-60"
+          style={{ backgroundColor: '#FAFAF7' }} />
+
+        <div className="max-w-5xl mx-auto relative z-10 animate-fade-in delay-200">
+          {/* Section header */}
+          <div className="text-center mb-14">
+            <span className="inline-block text-amber-700/70 text-xs font-bold tracking-widest uppercase mb-3">
+              Who I Am
+            </span>
+            <h2
+              className="text-4xl md:text-5xl font-bold text-stone-800 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              About Me
+            </h2>
+            <div className="mt-5 mx-auto w-14 h-0.5 rounded-full" style={{ backgroundColor: '#D4A96A' }} />
+          </div>
+
+          {/* Bio card */}
+          <div className="mb-14">
+            <div
+              className="rounded-3xl p-8 md:p-12 border border-stone-100"
+              style={{ backgroundColor: '#FAFAF7', boxShadow: '0 2px 20px rgba(0,0,0,0.04)' }}
+            >
+              <p className="text-lg md:text-xl text-stone-600 leading-relaxed max-w-3xl mx-auto text-center">
+                I'm Ahmed Hassan, a passionate frontend developer focused on building responsive and elegant web apps.
+                With a strong interest in design systems and UI/UX, I enjoy solving real-world problems through clean,
                 maintainable code. I am always excited to learn new technologies and continuously improve as a developer.
               </p>
             </div>
           </div>
-          
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-12 text-white">Technical Skills</h3>
-            <div className="flex flex-wrap justify-center gap-6">
+
+          {/* Skills */}
+          <div className="mb-14">
+            <h3
+              className="text-2xl font-bold text-center mb-10 text-stone-800"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Technical Skills
+            </h3>
+            <div className="flex flex-wrap justify-center gap-4">
               {skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="group flex items-center space-x-3 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-400/30 text-blue-400 px-6 py-4 rounded-2xl hover:from-blue-600/40 hover:to-cyan-600/40 hover:border-blue-400/60 hover:scale-110 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300 backdrop-blur-sm"
+                  className="group flex items-center gap-2.5 bg-white border border-stone-200 text-stone-700 px-6 py-3.5 rounded-2xl hover:bg-stone-800 hover:text-white hover:border-stone-800 hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-default select-none"
+                  style={{ boxShadow: '0 1px 6px rgba(0,0,0,0.05)' }}
                 >
-                  <div className="group-hover:rotate-12 group-hover:scale-110 transition-all duration-300">
+                  <span className="text-amber-600 group-hover:text-amber-300 transition-colors duration-300 group-hover:scale-110 transition-transform">
                     {skill.icon}
-                  </div>
-                  <span className="font-semibold text-lg">{skill.name}</span>
+                  </span>
+                  <span className="font-semibold">{skill.name}</span>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Resume */}
           <div className="text-center">
-            <a 
-              href="/resume.pdf" // Option 1: Local file in public folder
+            <a
+              href="/resume.pdf"
               // href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID" // Option 2: Google Drive
-              // href="https://your-website.com/path/to/resume.pdf" // Option 3: External URL  
-              download="Ahmed_Hassan_Resume.pdf" // Remove this line for external URLs
+              // href="https://your-website.com/path/to/resume.pdf"                  // Option 3: External URL
+              download="Ahmed_Hassan_Resume.pdf"
               // target="_blank" // Add this for external URLs that open in new tab
-              className="group inline-flex items-center bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-cyan-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 text-lg font-semibold"
+              className="group inline-flex items-center bg-stone-800 text-white px-8 py-4 rounded-2xl hover:bg-stone-700 hover:-translate-y-1 transition-all duration-300 shadow-md hover:shadow-lg text-base font-semibold"
             >
-              <Download className="w-6 h-6 mr-3 group-hover:animate-bounce" />
+              <Download className="w-5 h-5 mr-3 group-hover:animate-bounce" />
               Download Resume
             </a>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-950/10 via-transparent to-transparent"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-3xl mx-auto relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-            Ready to bring your ideas to life? Let's collaborate and create something amazing together.
-          </p>
-          
-          <div ref={formRef} className="bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-3xl p-10 border border-gray-700/30 backdrop-blur-sm shadow-2xl">
-            <div className="space-y-8" onKeyPress={handleKeyPress}>
+      {/* ─── CONTACT SECTION ─────────────────────────────────────────── */}
+      <section id="contact" className="py-24 px-4 relative overflow-hidden"
+        style={{ backgroundColor: '#F4EDE0' }}>
+
+        {/* Ambient blobs */}
+        <div className="absolute top-12 left-12 w-56 h-56 rounded-full blur-3xl animate-blob-drift-a"
+          style={{ backgroundColor: 'rgba(251,191,36,0.10)' }} />
+        <div className="absolute bottom-12 right-12 w-64 h-64 rounded-full blur-3xl animate-blob-drift-b"
+          style={{ backgroundColor: 'rgba(253,186,116,0.08)' }} />
+
+        {/* Dot grid */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: 'radial-gradient(circle, #B8A99A 1px, transparent 1px)',
+            backgroundSize: '28px 28px'
+          }}
+        />
+
+        <div className="max-w-xl mx-auto relative z-10 animate-fade-in delay-200">
+          {/* Section header */}
+          <div className="text-center mb-10">
+            <span className="inline-block text-amber-700/70 text-xs font-bold tracking-widest uppercase mb-3">
+              Let's Talk
+            </span>
+            <h2
+              className="text-4xl md:text-5xl font-bold text-stone-800 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              Get In Touch
+            </h2>
+            <div className="mt-5 mx-auto w-14 h-0.5 rounded-full" style={{ backgroundColor: '#D4A96A' }} />
+            <p className="text-stone-500 mt-6 text-base md:text-lg max-w-md mx-auto leading-relaxed">
+              Ready to bring your ideas to life? Let's collaborate and create something amazing together.
+            </p>
+          </div>
+
+          {/* Form card */}
+          <div
+            ref={formRef}
+            className="bg-white rounded-3xl p-7 md:p-10 border border-stone-100"
+            style={{ boxShadow: '0 4px 40px rgba(0,0,0,0.07)' }}
+          >
+            <div className="space-y-5" onKeyPress={handleKeyPress}>
+
+              {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-lg font-semibold text-gray-300 mb-3">
+                <label htmlFor="name" className="block text-sm font-semibold text-stone-700 mb-2 tracking-wide">
                   Your Name *
                 </label>
                 <input
@@ -443,17 +607,21 @@ const Portfolio = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   disabled={isSubmitting}
-                  className={`w-full px-6 py-4 bg-gray-800/50 border rounded-2xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 text-white placeholder-gray-500 text-lg backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed ${
-                    formData.name && !validateName(formData.name) ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
+                  className={`w-full px-5 py-3.5 border rounded-xl text-stone-800 placeholder-stone-400 text-base transition-all duration-300 outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
+                    formData.name && !validateName(formData.name)
+                      ? 'border-red-300 bg-red-50/40 focus:ring-2 focus:ring-red-200 focus:border-red-400'
+                      : 'border-stone-200 bg-stone-50 hover:border-stone-300 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 focus:bg-white'
                   }`}
                   placeholder="Enter your full name"
                 />
                 {formData.name && !validateName(formData.name) && (
-                  <p className="text-red-400 text-sm mt-2 ml-2">Name can only contain letters and spaces</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">Name can only contain letters and spaces</p>
                 )}
               </div>
+
+              {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-lg font-semibold text-gray-300 mb-3">
+                <label htmlFor="email" className="block text-sm font-semibold text-stone-700 mb-2 tracking-wide">
                   Your Email *
                 </label>
                 <input
@@ -463,82 +631,106 @@ const Portfolio = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   disabled={isSubmitting}
-                  className={`w-full px-6 py-4 bg-gray-800/50 border rounded-2xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 text-white placeholder-gray-500 text-lg backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed ${
-                    formData.email && !validateEmail(formData.email) ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
+                  className={`w-full px-5 py-3.5 border rounded-xl text-stone-800 placeholder-stone-400 text-base transition-all duration-300 outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
+                    formData.email && !validateEmail(formData.email)
+                      ? 'border-red-300 bg-red-50/40 focus:ring-2 focus:ring-red-200 focus:border-red-400'
+                      : 'border-stone-200 bg-stone-50 hover:border-stone-300 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 focus:bg-white'
                   }`}
                   placeholder="your.email@example.com"
                 />
                 {formData.email && !validateEmail(formData.email) && (
-                  <p className="text-red-400 text-sm mt-2 ml-2">Please enter a valid email address</p>
+                  <p className="text-red-500 text-xs mt-1.5 ml-1 font-medium">Please enter a valid email address</p>
                 )}
               </div>
+
+              {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-lg font-semibold text-gray-300 mb-3">
+                <label htmlFor="message" className="block text-sm font-semibold text-stone-700 mb-2 tracking-wide">
                   Message *
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows="6"
+                  rows="5"
                   value={formData.message}
                   onChange={handleInputChange}
                   disabled={isSubmitting}
-                  className={`w-full px-6 py-4 bg-gray-800/50 border rounded-2xl focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 text-white placeholder-gray-500 resize-none text-lg backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed ${
-                    formData.message.trim() === '' && formData.message !== '' ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
+                  className={`w-full px-5 py-3.5 border rounded-xl text-stone-800 placeholder-stone-400 resize-none text-base transition-all duration-300 outline-none disabled:opacity-50 disabled:cursor-not-allowed ${
+                    formData.message.trim() === '' && formData.message !== ''
+                      ? 'border-red-300 bg-red-50/40 focus:ring-2 focus:ring-red-200 focus:border-red-400'
+                      : 'border-stone-200 bg-stone-50 hover:border-stone-300 focus:ring-2 focus:ring-amber-200 focus:border-amber-400 focus:bg-white'
                   }`}
                   placeholder="Tell me about your project or just say hello..."
-                ></textarea>
+                />
               </div>
+
+              {/* Submit */}
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="group w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-5 px-8 rounded-2xl font-semibold text-lg hover:from-blue-700 hover:to-cyan-700 hover:scale-105 transition-all duration-300 shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group w-full bg-stone-800 text-white py-4 px-8 rounded-xl font-semibold text-base hover:bg-stone-700 hover:-translate-y-0.5 transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-md"
               >
                 <span className="flex items-center justify-center">
                   {isSubmitting ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                      Sending...
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
+                      Sending…
                     </>
                   ) : (
                     <>
                       Send Message
-                      <Mail className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                      <Mail className="w-4 h-4 ml-2.5 group-hover:translate-x-1 transition-transform duration-300" />
                     </>
                   )}
                 </span>
               </button>
-              <p className="text-gray-500 text-sm text-center">
-                💡 Tip: Press Ctrl+Enter (or Cmd+Enter on Mac) to send quickly
-              </p>
+
+            
             </div>
           </div>
         </div>
       </section>
 
-      {/* Back to Top Button */}
+      {/* ─── FOOTER ──────────────────────────────────────────────────── */}
+      <footer className="bg-stone-800 text-stone-400 py-8 px-4 text-center">
+        <p className="text-sm">
+          Crafted with care by{' '}
+          <span className="text-amber-300 font-semibold" style={{ fontFamily: "'Playfair Display', serif" }}>
+            Ahmed Hassan
+          </span>
+          {' '}· {new Date().getFullYear()}
+        </p>
+      </footer>
+
+      {/* ─── BACK TO TOP ─────────────────────────────────────────────── */}
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 hover:scale-110 transition-all duration-300 shadow-lg z-40"
+          className="fixed bottom-8 right-6 sm:right-8 bg-stone-800 text-white p-3 rounded-full hover:bg-stone-700 hover:-translate-y-1 hover:scale-110 transition-all duration-300 shadow-lg z-40"
+          aria-label="Back to top"
         >
-          <ChevronUp className="w-6 h-6" />
+          <ChevronUp className="w-5 h-5" />
         </button>
       )}
 
-      {/* Notification */}
+      {/* ─── NOTIFICATION TOAST ──────────────────────────────────────── */}
       {notification.show && (
-        <div className={`fixed top-24 right-4 p-4 rounded-lg shadow-lg z-50 transition-all duration-300 max-w-sm ${
-          notification.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-        } text-white`}>
-          <div className="flex items-start">
-            <div className="flex-1">
+        <div
+          className={`fixed top-20 right-4 p-4 rounded-2xl shadow-xl z-50 max-w-xs sm:max-w-sm border transition-all duration-300 ${
+            notification.type === 'success'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-red-50 border-red-200 text-red-800'
+          }`}
+        >
+          <div className="flex items-start gap-3">
+            <div className="flex-1 text-sm font-medium leading-relaxed">
               {notification.message}
             </div>
             <button
               onClick={() => setNotification({ show: false, message: '', type: '' })}
-              className="ml-3 text-white hover:text-gray-200"
+              className="text-current opacity-60 hover:opacity-100 transition-opacity shrink-0 mt-0.5"
+              aria-label="Dismiss"
             >
               <X className="w-4 h-4" />
             </button>
@@ -546,24 +738,86 @@ const Portfolio = () => {
         </div>
       )}
 
-      <style jsx>{`
+      {/* ─── GLOBAL STYLES & FONTS ───────────────────────────────────── */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        /* ── Fade-in ── */
         @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(22px); }
+          to   { opacity: 1; transform: translateY(0);    }
         }
-        
         .animate-fade-in {
-          animation: fade-in 1s ease-out;
+          animation: fade-in 0.9s cubic-bezier(0.22,1,0.36,1) both;
+          will-change: opacity, transform;
         }
-        
-        html {
-          scroll-behavior: smooth;
+
+        /* ── Animation delay utilities ── */
+        .delay-100 { animation-delay: 0.10s; }
+        .delay-200 { animation-delay: 0.20s; }
+        .delay-300 { animation-delay: 0.30s; }
+        .delay-400 { animation-delay: 0.40s; }
+
+        /* ── Blob drifts ── */
+        @keyframes blob-drift-a {
+          0%,100% { transform: translate(0px, 0px) scale(1);    }
+          33%      { transform: translate(28px,-18px) scale(1.04); }
+          66%      { transform: translate(-16px,14px) scale(0.97); }
+        }
+        @keyframes blob-drift-b {
+          0%,100% { transform: translate(0px, 0px) scale(1);     }
+          33%      { transform: translate(-22px,18px) scale(1.03); }
+          66%      { transform: translate(18px,-14px) scale(0.98); }
+        }
+        @keyframes blob-drift-c {
+          0%,100% { transform: scale(1);    }
+          50%      { transform: scale(1.07); }
+        }
+        .animate-blob-drift-a { animation: blob-drift-a 14s ease-in-out infinite; }
+        .animate-blob-drift-b { animation: blob-drift-b 17s ease-in-out infinite; }
+        .animate-blob-drift-c { animation: blob-drift-c 11s ease-in-out infinite; }
+
+        /* ── Decorative spins ── */
+        @keyframes spin-glacial {
+          from { transform: rotate(0deg);   }
+          to   { transform: rotate(360deg); }
+        }
+        .animate-spin-glacial { animation: spin-glacial 28s linear infinite; }
+
+        /* ── Gentle float ── */
+        @keyframes float-gentle {
+          0%,100% { transform: rotate(45deg) translateY(0);     }
+          50%      { transform: rotate(45deg) translateY(-10px); }
+        }
+        .animate-float-gentle { animation: float-gentle 7s ease-in-out infinite; }
+
+        /* ── Scroll hint bounce ── */
+        @keyframes bounce-subtle {
+          0%,100% { transform: translateX(-50%) translateY(0);   }
+          50%      { transform: translateX(-50%) translateY(5px); }
+        }
+        .animate-bounce-subtle { animation: bounce-subtle 2.4s ease-in-out infinite; }
+
+        /* ── Smooth card hover via JS fallback ── */
+        .group:hover { will-change: transform; }
+
+        /* ── Perf: promote blobs to their own layer to avoid layout thrash ── */
+        .animate-blob-drift-a,
+        .animate-blob-drift-b,
+        .animate-blob-drift-c { will-change: transform; }
+
+        /* ── Lazy-loaded images: prevent layout shift with a soft fade-in ── */
+        img[loading="lazy"] {
+          opacity: 0;
+          transition: opacity 0.5s ease;
+        }
+        img[loading="lazy"].loaded,
+        img[loading="lazy"]:not([src=""]) {
+          opacity: 1;
         }
       `}</style>
     </div>
